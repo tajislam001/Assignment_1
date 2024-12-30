@@ -27,7 +27,7 @@ class Student extends Person {
   String studentID;
   List<double> courseScores;
 
-
+  // Constructor
   Student({
     String name="",
     int age=0,
@@ -41,7 +41,7 @@ class Student extends Person {
     print("Role: Student");
   }
 
-
+  // Method to calculate average score
   double calculateAverageScore() {
     if (courseScores.isEmpty) {
       return 0.0;
@@ -56,7 +56,7 @@ class Teacher extends Person {
   final String teacherID;
   final List<String> coursesTaught;
 
-
+  // Constructor
   Teacher({
     String name ="",
     int age=0,
