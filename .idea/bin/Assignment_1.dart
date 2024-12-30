@@ -1,122 +1,130 @@
+import 'dart:io';
 
-abstract class Role {
-  void displayRole();
+abstract class Role{
+  displayRole();
 }
 
-class Person {
+class Person{
   String name;
   int age;
   String address;
 
-
-  Person({this.name="", this.age=0, this.address=""});
-
+  Person({
+    this.name="",
+    this.age=0,
+    this.address=""
+  });
 
   String get getName => name;
   int get getAge => age;
   String get getAddress => address;
 
-
-  void displayRole() {
-    print("Role: Undefined");
+  void displayRole(){
+    //print("");
   }
 }
 
-
-class Student extends Person {
+class Student extends Person{
   String studentID;
+  int grade;
   List<double> courseScores;
-
 
   Student({
     String name="",
     int age=0,
-    String address="",
-    this.studentID="",
-    required this.courseScores,
-  }) : super(name: name, age: age, address: address);
+    String address ="",
+    this.studentID ="",
+    this.grade =0,
+    required this.courseScores
+
+  }):super(name: name, age: age,address: address);
 
   @override
-  void displayRole() {
-    print("Role: Student");
+  void displayRole(){
+    print("Role:Student");
   }
 
-  
-  double calculateAverageScore() {
-    if (courseScores.isEmpty) {
-      return 0.0;
-    }
-    double totalScore = courseScores.reduce((sum, score) => sum + score);
-    return double.parse((totalScore / courseScores.length).toStringAsFixed(1)); // Round to 1 decimal
+  double calAvgScore(){
+    double totalScore = courseScores.reduce((sum,score)=>sum+score);
+    return double.parse((totalScore/courseScores.length).toStringAsFixed(1));
   }
 }
 
+class Teacher extends Person{
+  String teacherID;
+  List<String> coursesTaught;
 
-class Teacher extends Person {
-  final String teacherID;
-  final List<String> coursesTaught;
-
-  
   Teacher({
-    String name ="",
+
+    String name="",
     int age=0,
-    String address="",
+    String adress="",
     this.teacherID="",
-    required this.coursesTaught,
-  }) : super(name: name, age: age, address: address);
+    required this.coursesTaught
+
+  }):super(name: name,age: age,address: adress);
 
   @override
-  void displayRole() {
-    print("Role: Teacher");
+  void displayRole(){
+    print("Role:Teacher");
   }
 
-
-  String getFormattedCourses() {
-    return coursesTaught.join(", ");
+  String getFormattedCourses(){
+    return coursesTaught.join("\n-");
   }
 }
 
-
-class StudentManagementSystem {
-  void manage() {
-
+class StudentManagementSystem{
+  manage(String role){
     Student student = Student(
+
       name: "John Doe",
       age: 20,
       address: "123 Main Street",
-      studentID: "S101",
-      courseScores: [90, 85, 82],
-    );
+      studentID: "S120",
+      courseScores: [90,85,82],
 
+    );
 
     Teacher teacher = Teacher(
       name: "Mrs. Smith",
       age: 35,
-      address: "456 Oak St",
-      teacherID: "T201",
-      coursesTaught: ["Math", "English", "Bangla"],
+      adress: "456 Oak St",
+      teacherID: "T120",
+      coursesTaught: ["Math","English","Bangla"],
     );
 
+    if(role=="Student") {
+      print("Student Information");
+      student.displayRole();
+      print("Name: ${student.name}");
+      print("Age: ${student.age}");
+      print("Address: ${student.address}");
+      print("Average Score: ${student.calAvgScore()}");
+    }
 
-    print("Student Information:");
-    student.displayRole(); 
-    print("Name: ${student.getName}");
-    print("Age: ${student.getAge}");
-    print("Address: ${student.getAddress}");
-    print("Average Score: ${student.calculateAverageScore()}");
-    print("");
+    else if(role=="Teacher") {
+      print("Teacher Information");
+      teacher.displayRole();
+      print("Name: ${teacher.name}");
+      print("Age: ${teacher.age}");
+      print("Address: ${teacher.address}");
+      print("Courses Taught:\n-${teacher.getFormattedCourses()}");
+    }
+    else {
+      print("Enter Correct Role");
+    }
 
-
-    print("Teacher Information:");
-    teacher.displayRole();
-    print("Name: ${teacher.getName}");
-    print("Age: ${teacher.getAge}");
-    print("Address: ${teacher.getAddress}");
-    print("Courses Taught: ${teacher.getFormattedCourses()}");
   }
+
+
 }
 
-void main() {
-  StudentManagementSystem system = StudentManagementSystem();
-  system.manage();
+main(){
+  print("The Student Managment System\n---------------");
+  StudentManagementSystem smsys = StudentManagementSystem();
+
+  print("Enter Role: Student/Teacher");
+  String ? role = stdin.readLineSync();
+  smsys.manage(role!);
 }
