@@ -27,7 +27,7 @@ class Student extends Person {
   String studentID;
   List<double> courseScores;
 
-  /
+
   Student({
     String name="",
     int age=0,
