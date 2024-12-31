@@ -46,7 +46,7 @@ class Student extends Person{
 
   double calAvgScore(){
 
-    int len = courseScores.length;
+    int len = courseScores.length; //Length
     double sum = 0;
     for(int i=0; i<len; i++){
       sum = sum+ courseScores[i];
