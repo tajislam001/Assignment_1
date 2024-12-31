@@ -45,8 +45,15 @@ class Student extends Person{
   }
 
   double calAvgScore(){
-    double totalScore = courseScores.reduce((sum,score)=>sum+score);
-    return double.parse((totalScore/courseScores.length).toStringAsFixed(1));
+
+    int len = courseScores.length;
+    double sum = 0;
+    for(int i=0; i<len; i++){
+      sum = sum+ courseScores[i];
+    }
+    double avg = sum/len;
+    return avg;
+
   }
 }
 
